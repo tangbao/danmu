@@ -1,7 +1,9 @@
 # -*- coding:utf-8 -*-
 
 import sys
+import types
 
+from PyQt4 import QtCore
 from PyQt4 import QtGui
 
 import screen_test_window
@@ -13,7 +15,19 @@ class systemTray(QtGui.QSystemTrayIcon):
 
         self.setIcon(QtGui.QIcon('icon.ico'))
 
+        self.activated.connect(self.on_activated)
+
         self.show()
+
+    @QtCore.pyqtSlot(QtGui.QSystemTrayIcon.ActivationReason)
+    def on_activated(self, e):
+        if e == QtGui.QSystemTrayIcon.DoubleClick:
+            if not isinstance(self.parent(), types.NoneType):
+                if self.parent().isVisible():
+                    self.parent().hide()
+                else:
+                    self.parent().show()
+                    self.parent().activateWindow()
 
 class MainWindow(QtGui.QWidget):
     def __init__(self):
