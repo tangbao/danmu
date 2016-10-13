@@ -48,7 +48,7 @@ class ScreenWindow(QtGui.QWidget):
         self.resize(screen.width() / 4, screen.height() / 4)
         # self.move(screen.width() - self.width(), screen.y())
 
-        animation = QtCore.QPropertyAnimation(self, 'pos')
+        animation = QtCore.QPropertyAnimation(self, 'pos', self)
 
         animation.setDuration(1000)
         animation.setStartValue(QtCore.QPoint(screen.width() - self.width(), screen.y()))
