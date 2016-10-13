@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-
+import random
 import sys
 import types
 
@@ -9,6 +9,7 @@ from PyQt4 import QtGui
 
 import screen_test_window
 import screen_window
+from client import danmu
 
 
 class systemTray(QtGui.QSystemTrayIcon):
@@ -34,6 +35,9 @@ class systemTray(QtGui.QSystemTrayIcon):
 
 class MainWindow(QtGui.QWidget):
     def __init__(self):
+
+        self.screen_window_list = list()
+
         QtGui.QWidget.__init__(self)
 
         self.system_tray = systemTray(self)
@@ -66,11 +70,17 @@ class MainWindow(QtGui.QWidget):
         h_boxlayout.addWidget(self.aboutButton)
         layout.addLayout(h_boxlayout)
 
+        h_boxlayout = QtGui.QHBoxLayout()
+        self.testButton = QtGui.QPushButton('&Test')
+        self.testButton.clicked.connect(self.testButtonClicked)
+        h_boxlayout.addWidget(self.testButton)
+        layout.addLayout(h_boxlayout)
+
         self.setWindowFlags(Qt.Qt.WindowCloseButtonHint
                             | Qt.Qt.WindowMinimizeButtonHint)
 
         self.setLayout(layout)
-        self.setFixedSize(600, 200)
+        self.setFixedSize(600, 300)
         self.setWindowTitle('config')
         self.setWindowIcon(QtGui.QIcon('icon.ico'))
 
@@ -88,7 +98,8 @@ class MainWindow(QtGui.QWidget):
 
     def initScreenWindow(self, screen_list):
         for screen_id in screen_list:
-            screen_window.ScreenWindow(self, screen_id)
+            self.screen_window_list.append(screen_window.ScreenWindow(self, screen_id))
+
 
     @QtCore.pyqtSlot()
     def hideButtonClicked(self):
@@ -103,6 +114,20 @@ class MainWindow(QtGui.QWidget):
                                   <p>有什么好看的</p>
                                   <a href="https://github.com/Frederick-Zhu/danmu">https://github.com/Frederick-Zhu/danmu</a>
                                   ''')
+
+    @QtCore.pyqtSlot()
+    def testButtonClicked(self):
+        color = [Qt.Qt.black,
+                 Qt.Qt.red,
+                 Qt.Qt.green,
+                 Qt.Qt.blue]
+
+        style = {'animation_Duration': 5000,
+                 'font_PointSize': 48}
+
+        for screen_id in self.screen_window_list:
+            style['palette_Color'] = random.choice(color)
+            danmu.Danmu('test', style, screen_id)
 
 
 if __name__ == '__main__':
