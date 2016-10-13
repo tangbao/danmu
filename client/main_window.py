@@ -54,6 +54,7 @@ class MainWindow(QtGui.QWidget):
 
         h_boxlayout = QtGui.QHBoxLayout()
         self.hideButton = QtGui.QPushButton('&Hide')
+        self.hideButton.clicked.connect(self.hideButtonClicked)
         h_boxlayout.addWidget(self.hideButton)
         self.startButton = QtGui.QPushButton('&Start')
         h_boxlayout.addWidget(self.startButton)
@@ -71,8 +72,12 @@ class MainWindow(QtGui.QWidget):
     def initScreenTestWindow(self):
         screen_count = QtGui.QDesktopWidget().screenCount()
         for screen_id in range(screen_count):
-            print screen_id
+            # print screen_id
             screen_test_window.ScreenTestWindow(self, screen_id)
+
+    @QtCore.pyqtSlot()
+    def hideButtonClicked(self):
+        self.hide()
 
 
 if __name__ == '__main__':
