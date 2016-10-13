@@ -7,9 +7,19 @@ from PyQt4 import QtGui
 import screen_test_window
 
 
+class systemTray(QtGui.QSystemTrayIcon):
+    def __init__(self, parent, *args):
+        QtGui.QSystemTrayIcon.__init__(self, parent, *args)
+
+        self.setIcon(QtGui.QIcon('icon.ico'))
+
+        self.show()
+
 class MainWindow(QtGui.QWidget):
     def __init__(self):
         QtGui.QWidget.__init__(self)
+
+        self.system_tray = systemTray(self)
 
         layout = QtGui.QVBoxLayout(self)
 
