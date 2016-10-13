@@ -29,4 +29,4 @@ class Danmu(QtGui.QLabel):
         animation.setStartValue(QtCore.QPoint(parent.width(), 0))
         animation.setEndValue(QtCore.QPoint(-self.width(), 0))
 
-        animation.start()
+        animation.start(QtCore.QPropertyAnimation.DeleteWhenStopped)

@@ -3,8 +3,6 @@
 from PyQt4 import Qt
 from PyQt4 import QtGui
 
-import danmu
-
 
 class ScreenWindow(QtGui.QWidget):
     def __init__(self, parent, screen_id):
@@ -49,7 +47,5 @@ class ScreenWindow(QtGui.QWidget):
 
         self.resize(screen.width(), screen.height())
         self.move(screen.x(), screen.y())
-
-        d = danmu.Danmu('test', {}, self)
 
         self.show()
