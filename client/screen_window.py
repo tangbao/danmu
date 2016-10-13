@@ -1,5 +1,6 @@
 # -*- coding:utf-8 -*-
 from PyQt4 import Qt
+from PyQt4 import QtCore
 from PyQt4 import QtGui
 
 
@@ -45,6 +46,15 @@ class ScreenWindow(QtGui.QWidget):
         screen = QtGui.QDesktopWidget().screenGeometry(screen_id)
 
         self.resize(screen.width() / 4, screen.height() / 4)
-        self.move(screen.width() - self.width(), screen.y())
+        # self.move(screen.width() - self.width(), screen.y())
+
+        animation = QtCore.QPropertyAnimation(self, 'pos')
+
+        animation.setDuration(1000)
+        animation.setStartValue(QtCore.QPoint(screen.width() - self.width(), screen.y()))
+        animation.setEndValue(QtCore.QPoint(screen.width() / 2 - self.width(), screen.y()))
 
         self.show()
+        print id(animation.targetObject())
+        print id(self)
+        animation.start()
