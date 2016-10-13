@@ -34,6 +34,8 @@ class systemTray(QtGui.QSystemTrayIcon):
 
 class MainWindow(QtGui.QWidget):
     def __init__(self):
+        self.screen_window_list = list()
+
         QtGui.QWidget.__init__(self)
 
         self.system_tray = systemTray(self)
@@ -88,7 +90,7 @@ class MainWindow(QtGui.QWidget):
 
     def initScreenWindow(self, screen_list):
         for screen_id in screen_list:
-            screen_window.ScreenWindow(self, screen_id)
+            self.screen_window_list.append(screen_window.ScreenWindow(self, screen_id))
 
     @QtCore.pyqtSlot()
     def hideButtonClicked(self):
