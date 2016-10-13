@@ -48,6 +48,7 @@ class MainWindow(QtGui.QWidget):
         self.setLayout(layout)
         self.resize(600, 200)
         self.setWindowTitle('config')
+        self.setWindowIcon(QtGui.QIcon('icon.ico'))
 
         self.initScreenTestWindow()
 
