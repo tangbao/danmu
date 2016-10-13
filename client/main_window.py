@@ -17,6 +17,12 @@ class systemTray(QtGui.QSystemTrayIcon):
 
         self.setIcon(QtGui.QIcon('icon.ico'))
 
+        menu = QtGui.QMenu(parent)
+        self.aboutAction = QtGui.QAction('About', menu)
+        menu.addAction(self.aboutAction)
+
+        self.setContextMenu(menu)
+
         self.activated.connect(self.on_activated)
 
         self.show()
@@ -37,6 +43,8 @@ class MainWindow(QtGui.QWidget):
         QtGui.QWidget.__init__(self)
 
         self.system_tray = systemTray(self)
+
+        self.system_tray.aboutAction.triggered.connect(self.aboutButtonClicked)
 
         layout = QtGui.QVBoxLayout(self)
 
@@ -96,6 +104,8 @@ class MainWindow(QtGui.QWidget):
 
     @QtCore.pyqtSlot()
     def aboutButtonClicked(self):
+        if not self.isVisible():
+            self.show()
         QtGui.QMessageBox().about(self, 'About',
                                   u'''
                                   <strong>看什么看</strong>
