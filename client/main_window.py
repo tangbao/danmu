@@ -3,10 +3,12 @@
 import sys
 import types
 
+from PyQt4 import Qt
 from PyQt4 import QtCore
 from PyQt4 import QtGui
 
 import screen_test_window
+import screen_window
 
 
 class systemTray(QtGui.QSystemTrayIcon):
@@ -28,6 +30,7 @@ class systemTray(QtGui.QSystemTrayIcon):
                 else:
                     self.parent().show()
                     self.parent().activateWindow()
+
 
 class MainWindow(QtGui.QWidget):
     def __init__(self):
@@ -58,14 +61,21 @@ class MainWindow(QtGui.QWidget):
         h_boxlayout.addWidget(self.hideButton)
         self.startButton = QtGui.QPushButton('&Start')
         h_boxlayout.addWidget(self.startButton)
+        self.aboutButton = QtGui.QPushButton('&About')
+        h_boxlayout.addWidget(self.aboutButton)
         layout.addLayout(h_boxlayout)
 
+        self.setWindowFlags(Qt.Qt.WindowCloseButtonHint
+                            | Qt.Qt.WindowMinimizeButtonHint)
+
         self.setLayout(layout)
-        self.resize(600, 200)
+        self.setFixedSize(600, 200)
         self.setWindowTitle('config')
         self.setWindowIcon(QtGui.QIcon('icon.ico'))
 
         self.initScreenTestWindow()
+
+        self.initScreenWindow([0, ])
 
         self.show()
 
@@ -74,6 +84,10 @@ class MainWindow(QtGui.QWidget):
         for screen_id in range(screen_count):
             # print screen_id
             screen_test_window.ScreenTestWindow(self, screen_id)
+
+    def initScreenWindow(self, screen_list):
+        for screen_id in screen_list:
+            screen_window.ScreenWindow(self, screen_id)
 
     @QtCore.pyqtSlot()
     def hideButtonClicked(self):
