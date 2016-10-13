@@ -36,7 +36,7 @@ class ScreenWindow(QtGui.QWidget):
         # other events effectively "pass through" them. This attribute
         # is disabled by default.
 
-        # self.setAttribute(Qt.Qt.WA_TranslucentBackground, True)
+        self.setAttribute(Qt.Qt.WA_TranslucentBackground, True)
         # ----WA_TranslucentBackground----
         # Indicates that the widget should have a translucent background,
         # i.e., any non-opaque regions of the widgets will be translucent
@@ -47,8 +47,8 @@ class ScreenWindow(QtGui.QWidget):
 
         screen = QtGui.QDesktopWidget().screenGeometry(screen_id)
 
-        self.resize(screen.width() / 4, screen.height() / 4)
-        self.move(screen.width() - self.width(), screen.y())
+        self.resize(screen.width(), screen.height())
+        self.move(screen.x(), screen.y())
 
         d = danmu.Danmu('test', {}, self)
 

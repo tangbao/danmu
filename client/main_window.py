@@ -62,6 +62,7 @@ class MainWindow(QtGui.QWidget):
         self.startButton = QtGui.QPushButton('&Start')
         h_boxlayout.addWidget(self.startButton)
         self.aboutButton = QtGui.QPushButton('&About')
+        self.aboutButton.clicked.connect(self.aboutButtonClicked)
         h_boxlayout.addWidget(self.aboutButton)
         layout.addLayout(h_boxlayout)
 
@@ -92,6 +93,16 @@ class MainWindow(QtGui.QWidget):
     @QtCore.pyqtSlot()
     def hideButtonClicked(self):
         self.hide()
+
+    @QtCore.pyqtSlot()
+    def aboutButtonClicked(self):
+        QtGui.QMessageBox().about(self, 'About',
+                                  u'''
+                                  <strong>看什么看</strong>
+                                  <p>就是个填坑中的弹幕小程序</p>
+                                  <p>有什么好看的</p>
+                                  <a href="https://github.com/Frederick-Zhu/danmu">https://github.com/Frederick-Zhu/danmu</a>
+                                  ''')
 
 
 if __name__ == '__main__':
