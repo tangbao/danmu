@@ -18,8 +18,12 @@ class systemTray(QtGui.QSystemTrayIcon):
         self.setIcon(QtGui.QIcon('icon.ico'))
 
         menu = QtGui.QMenu(parent)
+        self.configAction = QtGui.QAction('Config', menu)
+        menu.addAction(self.configAction)
         self.aboutAction = QtGui.QAction('About', menu)
         menu.addAction(self.aboutAction)
+        self.exitAction = QtGui.QAction('Exit', menu)
+        menu.addAction(self.exitAction)
 
         self.setContextMenu(menu)
 
@@ -46,7 +50,9 @@ class MainWindow(QtGui.QWidget):
 
         self.system_tray = systemTray(self)
 
+        self.system_tray.configAction.triggered.connect(self.configButtonClicked)
         self.system_tray.aboutAction.triggered.connect(self.aboutButtonClicked)
+        self.system_tray.exitAction.triggered.connect(QtGui.qApp.quit)
 
         layout = QtGui.QVBoxLayout(self)
 

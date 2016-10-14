@@ -26,6 +26,5 @@ class ConfigWindow(QtGui.QWidget):
 
     def closeEvent(self, QCloseEvent):
         for screen in self.screen_test_window_list:
-            print screen.screen_id
             screen.close()
         self.close()
