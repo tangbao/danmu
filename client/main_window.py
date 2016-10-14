@@ -82,11 +82,13 @@ class MainWindow(QtGui.QWidget):
         self.setWindowTitle('Main Window')
         self.setWindowIcon(QtGui.QIcon('icon.ico'))
 
+        self.configButtonClicked()
+
         # self.initScreenTestWindow()
 
         screen_count = QtGui.QDesktopWidget().screenCount()
 
-        self.initScreenWindow(range(screen_count))
+        # self.initScreenWindow(range(screen_count))
 
         self.show()
 

@@ -21,7 +21,7 @@ class ScreenTestWindow(QtGui.QWidget):
         # Makes Qt delete this widget when the widget has accepted
         # the close event (see QWidget::closeEvent()).
 
-        # self.setAttribute(Qt.Qt.WA_Disabled, True)
+        self.setAttribute(Qt.Qt.WA_Disabled, True)
         # ----WA_Disabled----
         # Indicates that the widget is disabled, i.e. it does not receive
         # any mouse or keyboard events. There is also a getter functions
@@ -72,10 +72,10 @@ class ScreenTestWindow(QtGui.QWidget):
 
         self.show()
 
-    def mousePressEvent(self, QMouseEvent):
+    def selected(self):
         self.w_palette.setColor(QtGui.QPalette.Window, Qt.Qt.red)
         self.setPalette(self.w_palette)
 
-    def mouseReleaseEvent(self, QMouseEvent):
+    def deselected(self):
         self.w_palette.setColor(QtGui.QPalette.Window, QtGui.QColor(240, 240, 240, 255))
         self.setPalette(self.w_palette)
