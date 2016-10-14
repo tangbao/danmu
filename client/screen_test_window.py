@@ -6,6 +6,8 @@ from PyQt4 import QtGui
 
 class ScreenTestWindow(QtGui.QWidget):
     def __init__(self, parent, screen_id):
+        self.screen_id = screen_id
+
         QtGui.QWidget.__init__(self)
 
         self.setParent(parent)
@@ -19,7 +21,7 @@ class ScreenTestWindow(QtGui.QWidget):
         # Makes Qt delete this widget when the widget has accepted
         # the close event (see QWidget::closeEvent()).
 
-        self.setAttribute(Qt.Qt.WA_Disabled, True)
+        # self.setAttribute(Qt.Qt.WA_Disabled, True)
         # ----WA_Disabled----
         # Indicates that the widget is disabled, i.e. it does not receive
         # any mouse or keyboard events. There is also a getter functions
@@ -48,6 +50,11 @@ class ScreenTestWindow(QtGui.QWidget):
         self.resize(screen.width() / 8, screen.height() / 8)
         self.move(screen.x(), screen.y())
 
+        self.w_palette = QtGui.QPalette()
+
+        self.w_palette.setColor(QtGui.QPalette.Window, QtGui.QColor(240, 240, 240, 255))
+        self.setPalette(self.w_palette)
+
         l = QtGui.QLabel(self)
 
         l_font = QtGui.QFont()
@@ -64,3 +71,11 @@ class ScreenTestWindow(QtGui.QWidget):
         l.setGeometry(0, 0, self.width(), self.height())
 
         self.show()
+
+    def mousePressEvent(self, QMouseEvent):
+        self.w_palette.setColor(QtGui.QPalette.Window, Qt.Qt.red)
+        self.setPalette(self.w_palette)
+
+    def mouseReleaseEvent(self, QMouseEvent):
+        self.w_palette.setColor(QtGui.QPalette.Window, QtGui.QColor(240, 240, 240, 255))
+        self.setPalette(self.w_palette)

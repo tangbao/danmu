@@ -7,8 +7,8 @@ from PyQt4 import Qt
 from PyQt4 import QtCore
 from PyQt4 import QtGui
 
-import screen_test_window
 import screen_window
+from client import config_window
 
 
 class systemTray(QtGui.QSystemTrayIcon):
@@ -40,6 +40,8 @@ class systemTray(QtGui.QSystemTrayIcon):
 
 class MainWindow(QtGui.QWidget):
     def __init__(self):
+        self.screen_window_list = list()
+
         QtGui.QWidget.__init__(self)
 
         self.system_tray = systemTray(self)
@@ -67,40 +69,48 @@ class MainWindow(QtGui.QWidget):
         self.hideButton = QtGui.QPushButton('&Hide')
         self.hideButton.clicked.connect(self.hideButtonClicked)
         h_boxlayout.addWidget(self.hideButton)
-        self.startButton = QtGui.QPushButton('&Start')
-        h_boxlayout.addWidget(self.startButton)
+        self.configButton = QtGui.QPushButton('&Config')
+        self.configButton.clicked.connect(self.configButtonClicked)
+        h_boxlayout.addWidget(self.configButton)
         self.aboutButton = QtGui.QPushButton('&About')
         self.aboutButton.clicked.connect(self.aboutButtonClicked)
         h_boxlayout.addWidget(self.aboutButton)
+        layout.addLayout(h_boxlayout)
+
+        h_boxlayout = QtGui.QHBoxLayout()
+        self.startButton = QtGui.QPushButton('&Start')
+        h_boxlayout.addWidget(self.startButton)
         layout.addLayout(h_boxlayout)
 
         self.setWindowFlags(Qt.Qt.WindowCloseButtonHint
                             | Qt.Qt.WindowMinimizeButtonHint)
 
         self.setLayout(layout)
-        self.setFixedSize(600, 200)
-        self.setWindowTitle('config')
+        self.setFixedSize(600, 225)
+        self.setWindowTitle('Main Window')
         self.setWindowIcon(QtGui.QIcon('icon.ico'))
 
-        self.initScreenTestWindow()
+        # self.initScreenTestWindow()
 
-        self.initScreenWindow([0, ])
+        screen_count = QtGui.QDesktopWidget().screenCount()
+
+        self.initScreenWindow(range(screen_count))
 
         self.show()
 
-    def initScreenTestWindow(self):
-        screen_count = QtGui.QDesktopWidget().screenCount()
-        for screen_id in range(screen_count):
-            # print screen_id
-            screen_test_window.ScreenTestWindow(self, screen_id)
+
 
     def initScreenWindow(self, screen_list):
         for screen_id in screen_list:
-            screen_window.ScreenWindow(self, screen_id)
+            self.screen_window_list.append(screen_window.ScreenWindow(self, screen_id))
 
     @QtCore.pyqtSlot()
     def hideButtonClicked(self):
         self.hide()
+
+    @QtCore.pyqtSlot()
+    def configButtonClicked(self):
+        con = config_window.ConfigWindow(self)
 
     @QtCore.pyqtSlot()
     def aboutButtonClicked(self):
