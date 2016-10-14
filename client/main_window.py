@@ -61,19 +61,24 @@ class MainWindow(QtGui.QWidget):
         self.hideButton = QtGui.QPushButton('&Hide')
         self.hideButton.clicked.connect(self.hideButtonClicked)
         h_boxlayout.addWidget(self.hideButton)
-        self.startButton = QtGui.QPushButton('&Start')
-        h_boxlayout.addWidget(self.startButton)
+        self.configButton = QtGui.QPushButton('&Config')
+        h_boxlayout.addWidget(self.configButton)
         self.aboutButton = QtGui.QPushButton('&About')
         self.aboutButton.clicked.connect(self.aboutButtonClicked)
         h_boxlayout.addWidget(self.aboutButton)
+        layout.addLayout(h_boxlayout)
+
+        h_boxlayout = QtGui.QHBoxLayout()
+        self.startButton = QtGui.QPushButton('&Start')
+        h_boxlayout.addWidget(self.startButton)
         layout.addLayout(h_boxlayout)
 
         self.setWindowFlags(Qt.Qt.WindowCloseButtonHint
                             | Qt.Qt.WindowMinimizeButtonHint)
 
         self.setLayout(layout)
-        self.setFixedSize(600, 200)
-        self.setWindowTitle('config')
+        self.setFixedSize(600, 225)
+        self.setWindowTitle('Main Window')
         self.setWindowIcon(QtGui.QIcon('icon.ico'))
 
         self.initScreenTestWindow()
