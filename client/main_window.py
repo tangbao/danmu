@@ -120,10 +120,11 @@ class MainWindow(QtGui.QWidget):
         color = [Qt.Qt.black,
                  Qt.Qt.red,
                  Qt.Qt.green,
-                 Qt.Qt.blue]
+                 Qt.Qt.blue,
+                 Qt.Qt.yellow]
 
         style = {'animation_Duration': 5000,
-                 'font_PointSize': 48}
+                 'font_PointSize': 36}
 
         for screen_id in self.screen_window_list:
             style['palette_Color'] = random.choice(color)
